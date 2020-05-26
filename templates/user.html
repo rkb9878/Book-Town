@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+</head>
+<body style="background-image: linear-gradient(90deg,pink,silver,blue)">
+    {% include "navigationbar.html" %}
+<div class="container" >
+        <table class="table table-bordered table-light rounded mt-5 table-responsive table-hover">
+            <thead class="text-center bg-dark text-white">
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+{#                <th>Confirm password</th>#}
+                <th>Name</th>
+                <th>Address</th>
+                <th>State</th>
+                <th>Mobileno</th>
+                <th>Photo</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for an in ans %}
+                <tr>
+                    <td>{{ an.email }}</td>
+                    <td>{{ an.password }}</td>
+{#                    <td>{{ an.confirmpassword }}</td>#}
+                    <td>{{ an.name }}</td>
+                    <td>{{ an.address }}</td>
+                    <td>{{ an.mobile }}</td>
+                    <td>{{ an.state }}</td>
+                    <td><img src="{% static '' %}media/{{ an.photo }}" class="img-fluid" width="200px" height="200px" alt="no image"></td>
+                    <td>
+                        <button class="text-danger btn" onclick="deleteusers('{{ an.email }}')"><i
+                                class="fa fa-trash"></i></button></td>
+                       <td> <a href="edituser?email='{{ an.email }}'&password='{{ an.password }}'&confirmpassword='{{ an.confirmpassword }}'&name='{{ an.name }}'&address='{{ an.address }}'&state='{{ an.state}}'&mobile='{{ an.mobile }}'&photo='{{ an.photo }} " class="text-primary btn"><i class="fa fa-edit"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+<script src="{% static 'myjs/book.js' %}"></script>
+</body>
+</html>

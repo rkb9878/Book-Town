@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Sample Book</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <style>
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+{% include "navigationbar.html" %}
+<div class="container">
+    <form action="insertsample" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for=""> enter bookid </label>
+            <input type="text" readonly class="form-control" id="bookid" name="bookid" value="{{ id }}">
+        </div>
+        <div class="form-group">
+            <label for=""> Description </label>
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+        <div class="form-group">
+            <label for=""> Enter Photo</label>
+            <input type="file" name="photo" id="photo" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="submit">
+        </div>
+    </form>
+    {% if ans %}
+        <div class="m-5 w-50">
+            <div id="demo" class="carousel slide" data-ride="carousel">
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+                <div class="carousel-inner">
+                    {% for foo in ans %}
+                        <div class="carousel-item active">
+                            <img src='{% static "" %}media/{{ foo.photo }}' class="image-fluid">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" style="background-color: rgba(0,0,0,0.6);" href="#demo"
+                   data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" style="background-color: rgba(0,0,0,0.6);" href="#demo"
+                   data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+    {% include 'footer.html' %}
+    <script src="{% static 'myjs/book.js' %}"></script>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'indexheaderfile.html' %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .mySlides {
+            display: none;
+        }
+
+        .textstyles {
+            margin-top: 50px;
+            color: #a71d2a
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #af110e;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {
+            background-color: #3e8e41
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="row">
+    <div class="col-sm-6">
+        {#    {{ photo1 }}#}
+
+        <div class="w3-display-container mySlides">
+            <img src="{% static 'media/' %}{{ foo.photo }}" style="width:100%; height: 600px">
+        </div>
+        {% for foo in photo1 %}
+            {{ foo.photo }}
+            <div class="w3-display-container mySlides">
+                <img src="{% static 'media/' %}{{ foo.photo }}" style="width:100%; height: 600px">
+            </div>
+        {% endfor %}
+        <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+    </div>
+    <div class="col-sm-6">
+    </div>
+</div>
+
+
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+</script>
+
+</body>
+</html>

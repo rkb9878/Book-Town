@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>userdata</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include 'indexheaderfile.html' %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function pay() {
+            var formdata = new FormData();
+            formdata.append('name', document.getElementById('name').value);
+            formdata.append('mobile', document.getElementById('mobile').value);
+            formdata.append('address', document.getElementById('address').value);
+            formdata.append('total', document.getElementById('total').value);
+            formdata.append('paymentmode', document.getElementById('paymentmode').value);
+            if (document.getElementById('paymentmode').value == 'Cash') {
+                var xml = new XMLHttpRequest();
+                xml.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var ar = JSON.parse(this.response);
+                        console.log(ar);
+                        window.location.href = "thankspage?billid=" + ar['billid'];
+                    }
+                };
+                xml.open('POST', 'payment_action', true);
+                xml.send(formdata);
+            } else {
+                var total = parseFloat(document.getElementById('total').value) * 100;
+                var options = {
+                    "key": "rzp_test_dRWiKHS7zr2Gki",
+                    "amount": total,
+                    "name": "Good Reads",
+                    "description": "Online Payment System",
+                    "image": "http://ecourses.aec.edu.in/aditya/images/po4.png",
+                    "handler": function (response) {
+                        //alert(response.razorpay_payment_id);
+                        if (response.razorpay_payment_id == "") {
+                            //alert('Failed');
+                            {#window.location.href = "bookingaction?status=failed";#}
+                        } else {
+                            //alert('Success');
+                            {#window.location.href = "bookingaction?status=success&&gt=" + grandtotal;#}
+                        }
+                        var xml = new XMLHttpRequest();
+                        xml.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var ar = JSON.parse(this.response);
+                                console.log(ar);
+                                window.location.href = "thankspage?billid=" + ar['billid'];
+                            }
+                        };
+                        xml.open('POST', 'payment_action', true);
+                        xml.send(formdata);
+                    },
+                    "prefill": {
+                        "name": "",
+                        "email": ""
+                    },
+                    "notes": {
+                        "address": ""
+                    },
+                    "theme": {
+                        "color": "#F37254"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            }
+        }
+    </script>
+</head>
+<body>
+
+{% if request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% elif not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+
+{% include 'headline.html' %}
+<div class="container p-5" style="box-shadow: 1px 0 30px black">
+    <div class="form-group">
+        <h1 class="text-center"><u>Bill Detail</u></h1>
+    </div>
+    <hr class="bg-danger">
+    <div class="row">
+        <div class="col-sm-6">
+            <form>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" readonly value="{{ request.session.Email }}" data-rule-required="true"
+                           data-msg-required="Enter Email" placeholder="Email"
+                           class="form-control" name="email" id="email">
+                </div>
+                {#                {{ userdata }}#}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" data-rule-required="true" data-msg-required="Enter Full Name"
+                           placeholder="Full Name"
+                           class="form-control" name="name" value="{{ userdata.name }}" id="name">
+                </div>
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <input type="text" class="form-control" data-rule-required="true" data-msg-required="Enter Mobile"
+                           placeholder="Mobile" name="mobile" id="mobile" value="{{ userdata.mobile }}">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea data-rule-required="true" data-msg-required="*" class="form-control" name="address"
+                              id="address">{{ userdata.address }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Select Payment Mode</label>
+                    <select class="form-control" name="paymentmode" id="paymentmode" data-rule-required="true"
+                            data-msg-required="*">
+                        <option class="Cash">Cash</option>
+                        <option class="By Card">By Card</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Grand Total</label>
+                    <input type="text" readonly class="form-control" data-rule-required="true"
+                           data-msg-required="Enter Grand Total"
+                           placeholder="Total" name="total" id="total" value="{{ userdata.total }}">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" onclick="pay()">Pay Now</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6 p-0 mt-4" style="box-shadow: 1px 0 35px black">
+            <img src="{% static 'ben-white-EMZxDosijJ4-unsplash.jpg' %}" class="img-fluid w-100" alt="">
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+</body>
+</html>

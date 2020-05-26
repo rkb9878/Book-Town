@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>categrory</title>
+    {% include 'indexheaderfile.html' %}
+    <style>
+        .ourservices {
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .8)), url("{% static 'images/header-bg.jpeg' %}") fixed center no-repeat;
+        }
+    </style>
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+
+<section class="ourservices">
+    <div class="container" style="margin-top: 90px">
+        <div class="form-group text-center">
+            <h1 class="text-secondary text-uppercase font-italic comman-title">Find Books</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <img src="{% static 'media/' %}{{ category.0.2 }}" alt="" width="300" height="300">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="comman-title">{{ category.0.0 }}</h4>
+                    </div>
+                    <div class="card-footer">
+                        <a href="showgenre?catname={{ category.0.0 }}" class="btn btn-outline-danger form-control">More Books</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <img src="{% static 'media/' %}{{ category.1.2 }}" alt="" width="300" height="300">
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="comman-title">{{ category.1.0 }}</h4>
+                    </div>
+                    <div class="card-footer">
+                        <a href="showgenre?catname={{ category.1.0 }}" class="btn btn-outline-danger form-control">More Books</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</section>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

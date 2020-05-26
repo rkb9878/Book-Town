@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'indexheaderfile.html' %}
+    {#    <link rel="stylesheet" href="{% static 'css/' %}">    #}
+    {#    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>#}
+    <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            word-wrap: normal;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        i {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+
+{#{{ bookid }}#}
+{#{{ result }}#}
+<div class="container">
+    <div class="form-group text-center">
+        <h1>Rate My Product</h1>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-sm-6 offset-3">
+                <table class="table table-hover font-weight-bold">
+                    <tr>
+                        <td>Bill id</td>
+                        <td>{{ result.0 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ result.2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td>{{ result.4 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Adress</td>
+                        <td>{{ result.3 }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="addrating" method="POST" id="ratingbooks">
+                    <input type="hidden" id="bookid" name="bookid" value="{{ bookid }}">
+                    <input type="hidden" id="email" name="email" value="{{ result.2 }}">
+                    <div class="col-sm-8 offset-2">
+                        <h1 class="text-primary">Rate my Product</h1>
+                        <div class="rating text-warning"></div>
+                        <div class="form-group">
+                            <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h1 class="text-primary"><u>Reviews</u></h1>
+                <div>
+                    {% for foo in rating %}
+                        <div><h5>{{ foo.email }}</h5></div>
+                        <div class="text-warning">Rating: {{ foo.rating }}</div>
+                        <div>{{ foo.comment }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rating i {
+        font-size: 3em;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'dist/additional-methods.js' %}"></script>
+<script src="{% static 'dist/jquery.validate.js' %}"></script>
+<script src="{% static 'ratings/dist/starrr.css' %}"></script>
+<script src="{% static 'ratings/dist/starrr.js' %}"></script>
+{% include 'indexfooter.html' %}
+<script src="{% static 'rating/src/jquery.star.rating.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('.rating').addRating();
+    })
+</script>
+</body>
+</html>

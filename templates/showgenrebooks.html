@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>showgenrebooks</title>
+    {% include 'indexheaderfile.html' %}
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+
+<div class="container" style="margin-top: 100px">
+    <div class="row">
+        {% for foo in booksdata %}
+            <div class="col-sm-3 mt-5">
+                <div class="card">
+                    <div class="card-header text-center bg-danger"><h5>{{ foo.genre }}</h5></div>
+                    <div class="card-body text-center bg-secondary">
+                        <img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="200" height="250">
+                        <p>{{ foo.title }}</p>
+                    </div>
+                    <div class="card-footer bg-dark">
+                        <a href="showgenrebooksapmle?tid={{ foo.tid }}" class="btn btn-outline-danger form-control">Show Shample</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

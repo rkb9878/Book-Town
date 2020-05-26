@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- Latest compiled JavaScript -->
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'mycss/index2.css' %}">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <style>
+        .slider {
+            background-image: url("{% static 'book-1822474_1920.jpg' %}");
+            background-size: cover;
+            height: 100vh;
+            font-family: Tahoma;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            overflow-y: hidden;
+        }
+
+        .textbox {
+            border: none;
+            border-bottom: red 1px solid;
+            outline: none;
+            color: whitesmoke;
+        }
+
+        .labelwork {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #b3d7ff;
+        }
+
+        .btn-userlogin {
+            clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+            background: linear-gradient(90deg, red, orange, blue);
+        }
+
+        .btn-userlogin:visited {
+            -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=34, Direction=0, Color=#FFFFFF)"; /*IE 8*/
+            -moz-box-shadow: 0 8px 34px 34px rgba(255, 255, 255, 0.9); /*FF 3.5+*/
+            -webkit-box-shadow: 0 8px 34px 34px rgba(255, 255, 255, 0.9); /*Saf3-4, Chrome, iOS 4.0.2-4.2, Android 2.3+*/
+            box-shadow: 0 8px 34px 34px rgba(255, 255, 255, 0.9) !important; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+            filter: progid:DXImageTransform.Microsoft.Shadow(Strength=34, Direction=135, Color=#FFFFFF); /*IE 5.5-7*/
+        }
+    </style>
+</head>
+<body>
+{% include 'indexnavigation.html' %}
+<div class="slider">
+    <div class="container w-50 rounded-top rounded-bottom p-5"
+         style="box-sizing: border-box; background: rgba(0,0,0,0.5);min-height: 25rem;margin-top: 15%">
+        <form action="userlogin" method="get">
+            {% csrf_token %}
+            <h1 class="text-center" style="color: #f1992c"><i class="fa fa-2x fa-user"></i></h1>
+            <div class="form-group">
+                <label for="email" class="labelwork">Enter Email</label>
+                <input type=email id="email" required class="w-100 bg-transparent textbox" name="Email" autofocus
+                       placeholder="example@email.com">
+            </div>
+            <div class="form-group">
+                <label for="password" class="labelwork">Enter Password</label>
+                <input type=password id="password" required class="w-100 bg-transparent textbox" name="password"
+                       placeholder="Must be atleast 8 character">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn mt-4 w-25 btn-userlogin text-uppercase text-light float-right"
+                       value="submit">
+            </div>
+        </form>
+    </div>
+    {{ ar.message }}
+</div>
+<script src="{% static 'fontawesome-free-5.11.2-web/js/all.js' %}"></script>
+
+<script src="{% static 'myjs/jquery.ripples.js' %}"></script>
+<script src="{% static 'myjs/Effect.js' %}"></script>
+</body>
+
+</html>

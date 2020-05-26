@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "navigationbar.html" %}
+    <meta charset="UTF-8">
+    <title>Show Admin</title>
+</head>
+<body>
+<div>
+    {{ ar.message }}
+     <select name="catname" class="form-control">
+
+            {% for foo in ar %}
+                <option value="{{ foo }}">{{ foo }}</option>
+            {% endfor %}
+        </select>
+
+</div>
+
+</body>
+</html>

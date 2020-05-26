@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>showgenrebooksapmle</title>
+    {% include 'indexheaderfile.html' %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .mySlides {
+            display: none;
+        }
+
+        .textstyles {
+            margin-top: 50px;
+            color: #a71d2a
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #af110e;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {
+            background-color: #3e8e41
+        }
+
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2'), url(https://fonts.gstatic.com/s/materialicons/v7/2fcrYFNaTjcS6g4U3t-Y5RV6cRhDpPC5P4GCEJpqGoc.woff) format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            word-wrap: normal;
+            -moz-font-feature-settings: 'liga';
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        i {
+            cursor: pointer;
+        }
+
+        .rating i {
+            font-size: 3em;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .book-btn {
+            background: rgba(44, 113, 236, 0.62);
+            display: block;
+            color: white;
+            border: 1px solid gainsboro;
+            width: auto;
+            max-width: 175px;
+            margin: 15px auto;
+            {#border-radius: 50px;#}
+            text-transform: uppercase;
+            box-shadow: 1px 1px 8px #e99f4d;
+            padding: 3%;
+        }
+    </style>
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<div class="container mt-5">
+    <div class="text-center mt-3 mb-5 p-2 display-4 font-weight-bold"
+         style="background: linear-gradient(#f06732,#f8b852);color: white">
+        {{ firstlist.title }}
+    </div>
+    <div class="row" style="background: antiquewhite">
+        <div class="col-sm-6 p-5" style="border-right: 2px solid red">
+            <h1 class="text-center bg-light" style="color: cornflowerblue">Preview</h1>
+            <br>
+            {% for foo in photolist %}
+                <div class="w3-display-container mySlides">
+                    <img src="{% static 'media/' %}{{ foo.photo }}" style="width:100%; height: 400px">
+                </div>
+            {% endfor %}
+            <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+            <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+        </div>
+        <div class="col-sm-6 p-5" style="border: 1px solid brown;background: white">
+            <div class="row" style="border-bottom: 1px black solid">
+                <div class="col-sm-6">
+                    <h4>Author :<span class="text-danger">{{ firstlist.author }}</span></h4>
+                    <h4>Price :<span class="text-danger">{{ firstlist.price }}</span></h4>
+                    <h4>Genre :<span class="text-danger">{{ firstlist.genre }}</span></h4>
+                    <h4>Genre :<span class="text-danger">{{ firstlist.descp }}</span></h4>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group text-right" style="box-shadow: 0 0 35px black;object-fit: fill">
+                        <img src="{% static "media/" %}{{ firstlist.photo }}" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="h2 text-danger"><u>Description: </u></h4>
+                    <p style="text-indent: 50px">{{ firstlist.description }}</p>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                {#                <h3 class="text-center mb-5">Customer Reviews</h3>#}
+                <div class="form-group">
+                    {% for foo in rating %}
+                        <div class="mb-3">
+                            <div id="reviews">
+                                <span class="font-weight-bold text-primary h5">{{ foo.email }}</span>
+                                <span class="font-weight-bold text-primary h5">{{ foo.rating }}</span>
+                                <span class="font-weight-bold text-primary h5">{{ foo.description }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr style="border-top: 1px solid black">
+            <button type="button" onclick="addmodalcart({{ firstlist.bookid }})" class="btn book-btn btn-outline-danger mt-5">Add to cart<i
+                    class="fas fa-cart-plus ml-2"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+
+    function plusDivs(n) {
+        showDivs(slideIndex += n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        x[slideIndex - 1].style.display = "block";
+    }
+
+    $(document).ready(function () {
+
+    })
+</script>
+
+
+<div class="modal" id="addmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <input type="hidden" class="form-control" id="bookid">
+                <div class="row">
+                    <div class="col-sm-4 text-danger">Qty</div>
+                    <div class="col-sm-8">
+                        <select name="qty" id="qty" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                    </div>
+                </div>
+                <span id="confirm"></span>
+                <button type="button" onclick="addtocart()" class="btn btn-danger mt-5">Add to cart<i
+                        class="fas fa-cart-plus ml-2"></i></button>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}
+<script src="{% static 'myjs/addtocart.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.rating').addRating();
+    })
+</script>
+</body>
+</html>

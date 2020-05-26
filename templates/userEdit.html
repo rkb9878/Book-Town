@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include "navigationbar.html" %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit User</title>
+</head>
+<body>
+<div class="container">
+    <form action="saveuser" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="id">enter email</label>
+        {% for r in ar %}
+        <input type="email" value="{{ r.email }}" required class="form-control" id="id" name="email">
+        <div class="form-group">
+            <label for="password"> enter password </label>
+            <input type="hidden" class="form-control" value="{{ r.password }}" id="password" name="password" data-rule-required="true"
+                   data-msg-required="enter password" minlength="8">
+        </div>
+
+        <div class="form-group">
+            <label for=""> enter confirmpassword </label>
+            <input type="hidden" data-rule-equalto="#password"
+                   data-msg-equalto="password and confirmpassword must be same" data-rule-required="true"
+                   data-msg-required="enter confirm password" class="form-control" id="confirmpassword"
+                   name="confirmpassword" value="{{ r.password }}">
+        </div>
+
+        <div class="form-group col-sm-7">
+            <label class="btn-dark" for=""> enter name </label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ r.name }}">
+        </div>
+        <div class="form-group col-sm-7">
+            <label for=""class="btn-dark"> enter address </label>
+            <input type="text" class="form-control" id="address" name="address" value="{{ r.address }}">
+        </div>
+        <div class="form-group">
+            <label for=""> enter state </label>
+            <input type="text" class="form-control" id="state" name="state" value="{{ r.state }}">
+        </div>
+        <div class="form-group">
+            <label for=""> enter mobileno </label>
+            <input type="text" class="form-control" minlength="10" id="mobileno" name="mobileno" value="{{ r.mobile }}">
+        </div>
+        <div class="form-group">
+            <label for=""> enter photo</label>
+            <input type="file" name="photo" id="photo" class="form-control">
+            <img src="{% static '' %}media/{{ r.photo }}" class="img-fluid">
+            {% endfor %}
+        </div>
+{#        {{ ar }}#}
+        <div class="form-group">
+            <input type="submit" class="btn btn-outline-success" value="Submit" onclick="signup()">
+        </div>
+    </form>
+</div>
+</body>
+</html>

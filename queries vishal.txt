@@ -1,0 +1,38 @@
+loginlpage(admin side)
+ login is done by abc@gmail.com-can i change this email- what is this email.
+
+ 1. Admin
+     -add admin option is not working output page is not found.
+     -in change password option whose password is going to change.
+
+ 2. Books
+     -in add book option what is the requirement of browser because i have word file in pc but browser does not show it or not access anything.
+     -view sample is the third option in this it shows page error
+
+ 3. User 
+     - add user is not working.(when you create email password is 1234 that is of 4 characters but in this field shows that password must be 8 characters)
+     -3rd option change password is not working.
+
+ 4. Buy books
+     -payment status shows due payment + done with payment.
+     -2nd option dispatch payment shows packages material like combo.
+
+ 
+Home page queries
+ 1. name BOOK READER in certificate my project name is Books Town.
+ 2. search by category or publisher :- only fiction option work , non- fiction not work , i add category try to search but option does not show it(these show no data).
+ 3. at home when we open the book for preview it contains author- filled
+                                                          price-filled                 
+                                                          genre- filled
+                                                          genre-          ( blank - why this optio is there)
+ 4. you had said that some books have preview but i found only first book has preview.(depend on you as you do am ur student but i have option - add preview for some books or make non  preview all the books)
+ 5. how i add the preview for the books.
+ 6. offer
+    - as you said that there is a payment issue is it solved or not.
+    - register mobile number in payment received payment message or not.
+ 7. E-books(what is this i forget about it)
+ 8. next options are fiction and non fiction (why only two categories are shown )
+ 9. contact option(message send from this where it reach how i can see it as an admin)
+ 10. add to cart option logo(in this proceed to payment option is not working .shoows error)
+ 11. login shows same things - logout shows same things.
+ 12. what is work/benefit creating id.

@@ -1,0 +1,106 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'dist/jquery.validate.js' %}"></script>
+<style>
+    a{
+     text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        transition: .2s ease-in-out;
+        background: red;
+        color: white;
+    }
+    .error{
+        color: red !important;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm h6 p-0" style="z-index: 9999;color: white;border-bottom: 1px solid lightgray;background: white;box-shadow: 0 16px 40px lightgrey">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#"></a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Admin
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="addadmin">Add Admin</a>
+                <a class="dropdown-item" href="showadmin">View Admin </a>
+                <a class="dropdown-item" href="changepassword">Change Password </a>
+                <a class="dropdown-item" href="adminlogout ">Logout </a>
+
+
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Books
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="addbook">Add Book</a>
+                <a class="dropdown-item" href="booksview">View Book</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                E-Books
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="insertebook">Add E-Book</a>
+                <a class="dropdown-item" href="booksview">View E-Book</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Category of Books
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="addcategory">Add Category</a>
+                <a class="dropdown-item" href="showcategory">View Category</a>
+
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Users
+            </a>
+            <div class="dropdown-menu">
+{#                <a class="dropdown-item" href="adduser">Add User</a>#}
+                <a class="dropdown-item" href="viewuser">View User</a>
+{#                <a class="dropdown-item" href="changeuserpassword">Change password</a>#}
+
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Packages
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="addpackage">Add Package</a>
+                <a class="dropdown-item" href="showpackage">View Package</a>
+
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                BuyBooks
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="pendingpayment">Payment Status</a>
+                <a class="dropdown-item" href="showpackage">Dispatch Status</a>
+
+            </div>
+        </li>
+    </ul>
+</nav>

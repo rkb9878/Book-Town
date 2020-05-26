@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "navigationbar.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Package</title>
+    {% load static %}
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="container">
+    <form action="savepackage" method="post" enctype="multipart/form-data">
+
+        {% for r in ar %}
+            <div class="form-group">
+                <label for=""> P.Id</label>
+                <input type="text" readonly class="form-control" name="id" value="{{ r.pid }}">
+            </div>
+            <div class="form-group">
+                <label for=""> Enter Name</label>
+                <input type="text" class="form-control" name="name" value="{{ r.name }}">
+            </div>
+            <div class="form-group">
+                <label for=""> Enter number of books</label>
+                <input type="text" class="form-control" name="noofbooks" value="{{ r.numberofbooks }}">
+            </div>
+            <div class="form-group">
+                <label for=""> Enter Validity</label>
+                <input type="text" class="form-control" name="validity" value="{{ r.validity }}">
+            </div>
+             <div class="form-group">
+                <label for=""> Enter Price</label>
+                <input type="text" class="form-control" name="price" value="{{ r.price }}">
+            </div>
+
+        {% endfor %}
+        <div class="form-group">
+            <input type="submit" class="btn btn-success" value="save">
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

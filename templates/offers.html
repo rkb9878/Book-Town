@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>offer</title>
+    {% include 'indexheaderfile.html' %}
+    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'myjs/book.js' %}"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function pay() {
+            var formdata = new FormData();
+            formdata.append('pid', document.getElementById('pid').value);
+            formdata.append('price', document.getElementById('price1').value);
+            formdata.append('email', document.getElementById('email').value);
+            var options = {
+                "key": "rzp_test_dRWiKHS7zr2Gki",
+                "amount": parseInt(document.getElementById('price1').value) * 100,
+                "name": "Good Reads",
+                "description": "Online Payment System",
+                "image": "http://ecourses.aec.edu.in/aditya/images/po4.png",
+                "handler": function (response) {
+                    //alert(response.razorpay_payment_id);
+                    if (response.razorpay_payment_id == "") {
+                        alert('Failed');
+                        {#window.location.href = "bookingaction?status=failed";#}
+                    } else {
+                        alert('Success');
+                        {#window.location.href = "bookingaction?status=success&&gt=" + grandtotal;#}
+                    }
+                    var xml = new XMLHttpRequest();
+                    xml.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var ar = (this.response);
+                            alert(ar);
+                            if (ar == "fail") {
+                                window.location.href = "loginpage2";
+                            } else {
+                                document.getElementById('modalbooks').reset();
+                                $('#buybook').modal('hide');
+                                alert(ar);
+                            }
+                        }
+                    }
+                    ;
+                    xml.open('POST', 'Subscription', true);
+                    xml.send(formdata);
+                },
+                "prefill":
+                    {
+                        "name":
+                            "",
+                        "email":
+                            ""
+                    }
+                ,
+                "notes":
+                    {
+                        "address":
+                            ""
+                    }
+                ,
+                "theme":
+                    {
+                        "color":
+                            "#F37254"
+                    }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    </script>
+    <style>
+        .offer {
+            color: red;
+            background: #FFFFFF;
+            text-shadow: 0 1px #808d93, -1px 0 #cdd2d5, -1px 2px #808d93, -2px 1px #cdd2d5, -2px 3px #808d93, -3px 2px #cdd2d5, -3px 4px #808d93, -4px 3px #cdd2d5, -4px 5px #808d93, -5px 4px #cdd2d5, -5px 6px #808d93, -6px 5px #cdd2d5, -6px 7px #808d93, -7px 6px #cdd2d5, -7px 8px #808d93, -8px 7px #cdd2d5;
+        }
+        .raise:hover{
+            transition: .5s ease-in-out;
+            box-shadow: 1px 0 35px black;
+        }
+    </style>
+</head>
+<body style="background: antiquewhite">
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<div class="display-1 text-center font-weight-bold p-5 offer" style="background: url('{% static "alfons-morales-YLSwjSy7stw-unsplash.jpg" %}') repeat-x center/cover"><span class="p-3" style="filter: drop-shadow(-1px 0 50px whitesmoke);background: rgba(255,255,255,0.5);border-radius: 20px">Offer! Offer! Offer!</span></div>
+{#{{ offers }}#}
+{% for foo in offers %}
+    <a onclick="Buy({{ foo }})" style="cursor: pointer">
+        <div class="row m-4 bg-light raise">
+            <span class="display-4 font-weight-bold p-5 col-sm-4" style="border-right: 2px red solid">{{ foo.name }}</span>
+            <span class="col-sm-4 p-5 font-weight-bolder h1 font-italic text-warning" style="border-right: 2px red solid">
+                    <ul style="list-style: none;" class="p-5">
+                        <li>
+                            No of Books:-{{ foo.noofbooks }}
+                        </li>
+                        <li>
+                            price:-{{ foo.price }}
+                        </li>
+                    </ul>
+                </span>
+            <span class="col-sm-4">
+                <img src="{% static 'undraw_book_lover_mkck.png' %}" class="img-fluid float-right"
+                     alt=""></span>
+        </div>
+    </a>
+    <hr class="bg-danger">
+{% endfor %}
+{% include 'footer.html' %}
+<div class="modal" id="buybook">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Buy Books</h1>
+                <button class="btn close text-danger" type="button" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form action="" id="modalbooks">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="pid" name="pid">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter price </label>
+                        <input type="text" class="form-control" id="price1" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter email </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ request.session.Email }}" readonly>
+                    </div>
+                    <div>
+                        <h5>Books Name</h5>
+                        <div id="title" class="ml-5"></div>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-success" onclick="pay()">Process to pay</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn close" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script>
+    function Buy(obj) {
+        alert(obj.pid);
+        alert(obj.price);
+        var xml = new XMLHttpRequest();
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var output = JSON.parse(this.response);
+                var s = "";
+                for (var i = 0; i < output.length; i++) {
+                    s += "<p>" + output[i] + "</p>";
+                }
+                $('#pid').val(obj.pid);
+                $('#price1').val(obj.price);
+                document.getElementById('title').innerHTML = s;
+                $("#buybook").modal();
+            }
+        };
+        xml.open('GET', 'viewebookscover?pid=' + obj.pid, true);
+        xml.send();
+    }
+</script>
+</body>
+</html>

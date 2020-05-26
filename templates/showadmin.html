@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Show Admin</title>
+    <link href="stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Capriola&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+</head>
+<body style="background: url({% static 'images/viewadminbackgroud.jpg' %}) no-repeat fixed center center">
+{% include "navigationbar.html" %}
+<div class="container">
+    <h1 class="text-center p-sm-4" style="font-family: 'Capriola', sans-serif;border-bottom: 2px solid red">Show
+        Admin</h1>
+    {% csrf_token %}
+    <table class="table table-light table-hover table-bordered">
+        <tr>
+            <thead class="bg-dark text-light text-center">
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th colspan="2">Action</th>
+            </thead>
+        </tr>
+        {% for p in ar %}
+            <tr>
+                <td class="font-weight-bolder">{{ p.Email }}</td>
+                <td class="font-weight-bolder">{{ p.Mobileno }}</td>
+                <td class="text-center"><a href="removeadmin?q={{ p.Email }}"><i
+                        class="fa fa-trash text-danger"></i></a></td>
+                <td class="text-center"><a href="editadmin?q={{ p.Email }}"><i class="fa fa-edit text-success"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
+

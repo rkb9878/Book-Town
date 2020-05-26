@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Booksall</title>
+    {% include 'indexheaderfile.html' %}
+
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<div class="container" style="background: #b3b3b338; border-bottom-left-radius: 20px;border-bottom-right-radius: 20px">
+    <div class="display-4 font-weight-bold p-5 text-center" style="color: red">{{ catname }} - Collections</div>
+    <hr class="bg-danger w-75">
+    <div class="row">
+        {% for foo in bookdata %}
+            <div class="col-sm-3 mt-3">
+                <div class="card cstm-card">
+                    <div style="position: relative">
+                        <div class="text-center card-rela">
+                            <span class="spam-text">{{ foo.genre }}</span></div>
+
+                        <img src="{% static 'media/' %}{{ foo.photo }}" alt="" class='img-fluid card-book-img'>
+                    </div>
+                    <div style='border-radius: 10px' class='book-btn'>
+                        {#                    <form action="showgenrebooks" method="post">{% csrf_token %}#}
+                        {#                        <input type="hidden" value="{{ foo.catname }}" name="catname">#}
+                        {#                        <input type="hidden" value="{{ foo.genre }}" name="genre">#}
+                        {#                        <button class="btn btn-danger form-control" type="submit">Show More</button>#}
+                        <a href="showgenrebooks?catname={{ foo.catname }}&genre={{ foo.genre }}" class='btn btn-danger form-control'>Show More</a>
+                        {#                    </form>#}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% include 'footer.html' %}
+</body>
+</html>

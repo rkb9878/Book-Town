@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    {#    <script src="{% static 'myjs/book.js' %}"></script>#}
+    <title>Signup</title>
+    <style>
+        body {
+            background: url({% static 'images/viewadminbackgroud.jpg' %}) no-repeat fixed center center/cover
+        }
+
+
+        .labelwork {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            text-transform: capitalize;
+        }
+
+        #formstyle {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            border: 5px double rgba(255, 0, 0, 0.3);
+            margin-bottom: 5%;
+        }
+
+        .error {
+            color: red !important;
+        }
+    </style>
+    {% include 'indexheaderfile.html' %}
+
+
+</head>
+<body>
+
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+<div class="container w-50 mt-sm-5 p-5" id="formstyle">
+    <h1 class="text-center text-white">Sign-Up</h1>
+    <form method="post" id="insertuser" enctype="multipart/form-data">
+        <hr class="bg-success">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id" class="labelwork">enter email</label>
+            <input type="email" required class="form-control" data-rule-required="true" id="id" name="email">
+        </div>
+        <div class="form-group">
+            <label for="password" class="labelwork"> enter password </label>
+            <input type="password" class="form-control" id="password" name="password" data-rule-required="true"
+                   data-msg-required="enter password" minlength="8">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="labelwork"> enter confirmpassword </label>
+            <input type="password" data-rule-equalto="#password"
+                   data-msg-equalto="password and confirmpassword must be same" data-rule-required="true"
+                   data-msg-required="enter confirm password" class="form-control" id="confirmpassword"
+                   name="confirmpassword">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="labelwork"> enter name </label>
+            <input type="text" class="form-control" data-rule-required="true" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter address </label>
+            <input type="text" class="form-control" data-rule-required="true" id="address" name="address">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter state </label>
+            <input type="text" class="form-control" id="state" name="state">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter mobileno </label>
+            <input type="text" class="form-control" data-rule-required="true" id="mobileno" name="mobileno">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork"> enter photo</label>
+            <input type="file" name="photo" id="photo" data-rule-required="true" class="form-control">
+        </div>
+        <hr class="bg-warning">
+        <div class="form-group text-center">
+            <input type="button" class="btn btn-primary w-50 badge-pill" value="Submit" onclick="signup()">
+        </div>
+    </form>
+</div>
+{% include 'footer.html' %}
+<script>
+    function signup() {
+        // var insertuser = ;
+        // alert(insertuser)
+        alert("hello");
+        if ($('#insertuser').valid()) {
+            alert("hello");
+            var id = document.getElementById("id").value;
+            console.log(id);
+            var data = new FormData();
+            data.append('id', document.getElementById("id").value);
+            data.append('password', document.getElementById("password").value);
+            // data.append('confirmpassword', document.getElementById("confirmpassword").value);
+            data.append('name', document.getElementById("name").value);
+            data.append('address', document.getElementById("address").value);
+            data.append('state', document.getElementById("state").value);
+            data.append('mobileno', document.getElementById("mobileno").value);
+            data.append('photo', document.getElementById("photo").files[0]);
+            console.log($("#id"), $("#password"));
+            var xml = new XMLHttpRequest();
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var output = this.response;
+                    alert(output)
+                    {#document.getElementById('insertuser').reset();#}
+                    window.location.href='loginpage2';
+                }
+            };
+            xml.open('post', 'insertuser', true);
+            xml.send(data);
+        }
+    }
+</script>
+<script src="{% static 'myjs/book.js' %}"></script>
+<script src="{% static 'myjs/viewallbooks.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Add Admin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url("{% static '' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+
+        .labelwork {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 130%;
+            color: #ff8b8d;
+        }
+
+        #formstyle {
+            background: linear-gradient(transparent 5%, darkgrey);
+            border-radius: 20px;
+            border: 5px double rgba(255, 0, 0, 0.3);
+            box-sizing: border-box;
+            box-shadow: 13px 19px 7px rgba(0, 0, 255, 0.5);
+            filter: blur(0.6);
+        }
+    </style>
+</head>
+<body>
+{% include "navigationbar.html" %}
+<div class="container w-50 mt-sm-5" id="formstyle">
+    <form action="insertadmin" id="save" method="POST" class="p-sm-5">
+        <h1 class="text-center">Add Admin</h1>
+        <hr class="bg-danger">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="" class="labelwork">Enter Email </label>
+            <input type="email"  required class="form-control rounded-pill text-dark font-weight-bold"
+                   style="background: rgba(255,255,255,0.5)" name="email">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork">Enter Password</label>
+            <input type="password" required class="form-control rounded-pill text-dark font-weight-bold"
+                   style="background: rgba(255,255,255,0.5)" name="Password">
+        </div>
+        <div class="form-group">
+            <label for="" class="labelwork">Enter Mobileno</label>
+            <input type="text" required class="form-control rounded-pill text-dark font-weight-bold"
+                   style="background: rgba(255,255,255,0.5)" name="Mobileno">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success rounded-pill w-25"
+                   style="box-sizing: border-box;box-shadow: 13px 19px 7px grey" value="submit">
+        </div>
+    </form>
+</div>
+<script>
+    $('#save').validate();
+</script>
+</body>
+</html>

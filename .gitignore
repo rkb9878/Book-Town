@@ -1,0 +1,12 @@
+.idea/
+__pycache__/
+.venv
+venv/
+*.manifest
+*.spec
+.idea
+*.egg
+.installed.cfg
+pip-log.txt
+parts/
+.Python

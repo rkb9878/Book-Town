@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    {% include "header.html" %}
+</head>
+<body>
+{% include "navigationbar.html" %}
+<div class="container mt-5">
+    <div class="text-center display-4 font-weight-bold" style="text-decoration: underline orangered">Payment Status</div>
+    <hr class="bg-success">
+    <div class="row bg-light">
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <div class="text-center p-2"><h2>Due Payment</h2></div>
+                <table class="table table-hover bg-danger text-white">
+                    <thead class="bg-dark">
+                    <tr>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    {% for foo in data %}
+                        {% if  foo.typeofbill == 'Cash' %}
+                            <tr>
+                                <td>{{ foo.email }}</td>
+                                <td>{{ foo.mobile }}</td>
+                                <td>{{ foo.totalamount }}</td>
+                                <td><a href="changepayment?id={{ foo.id }}" class="btn btn-success">Get Payment</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <div class="text-center p-2"><h2>Done with Payment</h2></div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    {% for foo in data %}
+                        {% if  foo.typeofbill != 'Cash' %}
+                            <tr>
+                                <td>{{ foo.email }}</td>
+                                <td>{{ foo.mobile }}</td>
+                                <td>{{ foo.totalamount }}</td>
+                                {{ foo.status }}
+                                {% if foo.status == 'sucess' %}
+                                    {#                                    {{ foo.rating }}#}
+                                    {% if foo.rating == 'pending' %}
+                                        <td>
+                                            <a href="requestforrating?id={{ foo.id }}&email={{ foo.email }}&mobile={{ foo.mobile }}"
+                                               class="btn btn-warning">Rating</a></td>
+                                    {% elif foo.rating != 'pending' %}
+                                        <td><span class="btn btn-secondary">sended sucess</span></td>
+                                    {% endif %}
+                                {% else %}
+                                    <td><a href="dispatch?id={{ foo.id }}&mobile={{ foo.mobile }}"
+                                           class="btn btn-success">Dispatch</a></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

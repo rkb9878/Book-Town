@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <title>Books</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+
+    <style>
+        body {
+            background: url({% static 'images/viewadminbackgroud.jpg' %}) no-repeat fixed center center
+        }
+
+        tbody tr:hover {
+            background-color: rgba(225, 255, 255, 0.6);
+            color: black;
+            transition: 0.5s ease-in-out;
+        }
+
+        @media screen and (max-width: 480px) {
+            #categoryname {
+                width: 50% !important;
+            }
+
+        }
+    </style>
+</head>
+<body id="bookstable">
+    {% include "navigationbar.html" %}
+
+{% if ans %}
+    {{ ans }}
+{% endif %}
+<div class="container mt-5 pt-5">
+    <a href="addbook" class="btn float-right btn-primary"
+       style="clip-path: polygon(108% -114%, -2% 48%, 98% 222%);width: 154px">Add Books</a>
+    <select name="categoryname" id="categoryname" class="font-italic dropdown active bg-dark text-white btn w-50"
+            onchange="viewbooks(this.value)">
+        <option value="Please" selected class="text-success">Please Select</option>
+        {% for foo in data %}
+            <option class="text-secondary" value="{{ foo }}">{{ foo }}</option>
+        {% endfor %}
+    </select>
+
+</div>
+{#show table#}
+<div class="table-responsive mt-5 container-fluid">
+    <table class="table  table-bordered ">
+        <thead style="background-color: black;color: #f9f9f9;font-family: 'Droid Sans Mono';text-align: center">
+        <tr>
+            <th>S.No</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Edition</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th colspan="3">Action</th>
+        </tr>
+        </thead>
+        <tbody id="viewbookdata" style="background-color: rgba(0,0,0,0.5);color: whitesmoke"></tbody>
+    </table>
+</div>
+
+{#modal popupedit#}
+<div class="modal" id="editbooks">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Edit Books</h1>
+                <button class="btn close text-danger" type="button" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" enctype="multipart/form-data" id="formData">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter title </label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter description </label>
+                        <input type="text" class="form-control" id="description" name="description">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter price </label>
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter edition </label>
+                        <input type="text" class="form-control" id="edition" name="edition">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter author </label>
+                        <input type="text" class="form-control" id="author" name="author">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> enter genre </label>
+                        <input type="text" class="form-control" id="genre" name="genre">
+                    </div>
+                    <div class="form-group">
+                        <img src="" alt="no image" id="img" class="img-fluid" width="200px" height="200px">
+                        <div class="custom-file">
+                            <label for="" id="labelimgname" class="custom-file-label"></label>
+                            <input type="file" name="photo" onchange="readURL(this)" id="file"
+                                   class="custom-file-input" accept=".jpg;.jpeg;.png"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-success" value="submit" onclick="updateData()">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn close" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'myjs/book.js' %}"></script>
+</body>
+</html>

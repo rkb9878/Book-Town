@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #snow-fall {
+            width: 100%;
+            height: 100vh;
+            background: url("{% static 'wintercover.jpg' %}");
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        input[type='text'], input[type='text']:hover, input[type='text']:active, input[type='text']:focus {
+            outline: none;
+            border: none;
+            border-bottom: 2px solid red;
+            background-color: transparent;
+            overflow: hidden;
+            color: whitesmoke;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: none;
+        }
+
+        #textjam:hover {
+            transition: 2.0s ease-in-out;
+            color: blue;
+            box-shadow: 2px 5px 7px white;
+            background-color: wheat;
+            opacity: 0.7;
+            border-radius: 50px;
+            cursor: not-allowed;
+            transform: translate(0%, -20%);
+        }
+
+        img:hover {
+            transition: 2.0s ease-in-out;
+            transform: translate3d(15%, -20%, 0.8px);
+        {#transform: scale3d(1,1,1) rotate(10deg) translate3d(10%,-20%,0.8px);#} color: blue;
+            box-shadow: 2px 5px 7px white;
+            border-radius: 50px;
+            cursor: not-allowed;
+
+        }
+
+        .formsnow {
+            z-index: 9997;
+            top: 0;
+            {#left: 5%;#}
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            {#padding: 3%;#}
+            border-radius: 15px;
+            color: white;
+            height: 100vh;
+            font-weight: bold;
+            {#bottom: 5%#}
+        }
+    </style>
+</head>
+<body id="snow-fall">
+<script src="{% static 'particles.js' %}"></script>
+<script src="{% static 'app.js' %}"></script>
+<div class="container-fluid p-0 formsnow">
+    {% include "navigationbar.html" %}
+    <div class="mt-5 w-50 p-5 h1 mx-auto" style="text-decoration: underline orangered;background: rgba(255,255,255,.5)">WELCOME {{ request.session.adminEmail }}</div>
+    </div>
+{#{{ ar.message }}#}
+</body>
+</html>

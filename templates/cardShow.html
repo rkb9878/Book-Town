@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include "navigationbar.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Card show</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+</head>
+<body>
+{% if ans %}
+    {% for foo in ans %}
+        <div class="card w-25 m-3 d-inline-flex">
+            <div class="card-header">Books</div>
+            <img class="card-img-top img-thumbnail" src="{% static '' %}media/{{ foo.catphoto }}" alt="Card image">
+            <div class="card-body">
+                <p class="card-text">{{ foo.description }}</p>
+                <div class="btn float-right btn-danger">Read More</div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+</body>
+</html>

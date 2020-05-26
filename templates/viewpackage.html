@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Package</title>
+
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+</head>
+<body style="background: url({% static 'images/viewadminbackgroud.jpg' %}) no-repeat fixed center center/cover">
+    {% include "navigationbar.html" %}
+
+<div class="display-4 font-weight-bold text-center p-5" style="text-decoration: underline orangered">Packages</div>
+<div class="container p-0" style="box-shadow: 1px 0 35px black">
+    <table class="table table-light table-bordered table-hover">
+        <thead class="bg-dark text-light">
+        <tr>
+            <th>P.Id</th>
+            <th>Name</th>
+            <th>Number of Books</th>
+            <th>Validity</th>
+            <th>Price</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in ans %}
+            <tr>
+                <td>{{ r.pid }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.numberofbooks }}</td>
+                <td>{{ r.validity }}</td>
+                 <td>{{ r.price }}</td>
+
+                <td><a href="editpackage?q={{ r.pid }}"><i class="fa fa-edit"></i></a></td>
+                <td><a href="deletepackage?q={{ r.pid }}"><i class="fa text-danger fa-trash"></i></a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

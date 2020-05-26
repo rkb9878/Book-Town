@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>show product</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include 'indexheaderfile.html' %}
+    <style>
+        .grandbox {
+            max-width: 300px;
+            max-height: 250px;
+            overflow: auto;
+            background: #FFFFFF;
+            float: right;
+            word-spacing: 1.5px;
+        }
+
+        .titlegrand {
+            border: 1px solid black;
+            padding: 8px 21px;
+            letter-spacing: 10px;
+            margin-top: 26px;
+        }
+
+        .pay:hover {
+            transition: .5s ease-in-out;
+            box-shadow: 22px 9px 66px black;
+            border-radius: 39px;
+        }
+    </style>
+</head>
+<body>
+{% if request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% elif not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<div class="container mt-5">
+    <div class="display-4 font-weight-bold" style="color: #ff5a00">CART - ITEMS</div>
+    <hr class="bg-danger">
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr class="bg-dark text-white text-center">
+                <th>P.No</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>photo</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for foo in datalist %}
+                <tr>
+                    <td>{{ foo.bookid }}</td>
+                    <td>{{ foo.title }}</td>
+                    <td>{{ foo.price }}</td>
+                    <td>{{ foo.qty }}</td>
+                    <td><img src="{% static 'media/' %}{{ foo.photo }}" alt="" width="100" height="100"></td>
+                    <td>
+                        <a href="delete_from_cart?bookid={{ foo.bookid }}" class="btn btn-danger"><i
+                                class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            {#            <tfoot>#}
+            {#            <tr class="bg-warning text-white">#}
+            {#                <td><span class="h4">Total :- </span><span>{{ total }}/-</span></td>#}
+            {#                <td class="text-right">#}
+            {#                    {% if total > 0 %}#}
+            {#                        <a href="processtopay" class=" btn btn-success"><strong>Process to Pay</strong></a>#}
+            {#                    {% else %}#}
+            {#                        <a href="/" class="btn btn-success"><strong>Continue Shopping</strong></a>#}
+            {#                    {% endif %}#}
+            {#                </td>#}
+            {#            </tr>#}
+            {#            </tfoot>#}
+        </table>
+        <hr class="bg-danger">
+        <div class="grandbox text-center">
+            <div class="h3 text-center text-white bg-danger titlegrand">Grand Total</div>
+            <div class="h3" style="border-bottom: 1px solid blue">&#8377; {{ total }}</div>
+            <div>
+                {% if total > 0 %}
+                    <a href="processtopay" class="btn w-100 btn-outline-primary pay"><strong>Process to Pay >></strong></a>
+                {% else %}
+                    <a href="/" class="btn btn-outline-primary pay w-100"><strong>Continue Shopping</strong></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr class="bg-warning">
+        <div class="text-center">
+            <a href="/" class="btn btn-outline-primary mb-2"><strong>Continue Shopping</strong></a>
+        </div>
+</div>
+
+{#{% include "indexfooter.html" %}#}
+</body>
+</html>

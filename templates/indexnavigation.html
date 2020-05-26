@@ -1,0 +1,88 @@
+{% load static %}
+<!--    navbar-->
+<nav class="navbar navbar-expand-lg fixed-top nav-menu p-0 nav nav-bar">
+    <a href="/" class="navbar-brand text-light text-uppercase"><img class="img-size nav-img"
+                                                                    src="{% static 'images/logo.png' %}"
+                                                                    alt=""></a><span
+        class="input-group w-25 offset-1"><input type="text" name="search" id="search" class="form-control nav-search"
+                                                 placeholder="Search By  Book-Name"
+                                                 data-rule-required="true"><span class="input-group-append"><span
+        class="input-group-text nav-search-icon"><i class="fa fa-search"></i></span></span></span>
+    <button class="navbar-toggler nav-button" type="button" data-toggle="collapse" data-target="#mynavbar">
+        <div class="bg-light line1"></div>
+        <div class="bg-light line2"></div>
+        <div class="bg-light line3"></div>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end text-uppercase font-weight-bold" id="mynavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/" class="nav-link m-2 menu-item">Home</a>
+            </li>
+            {#            <li class="nav-item">#}
+            {#                <a href="offer" class="nav-link m-2 menu-item">Offer</a>#}
+            {#            </li>#}
+            <li class="nav-item">
+                <a href="viewebooks" class="nav-link m-2 menu-item">E-Books</a>
+            </li>
+            <li class="nav-item">
+            <li class="nav-item">
+                <a href="showgenre?catname=Fiction" class="nav-link m-2 menu-item">Fictional</a>
+            </li>
+            <li class="nav-item">
+                <a href="showgenre?catname=Non-Fiction" class="nav-link m-2 menu-item">Non-Fictional</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact" class="nav-link m-2 menu-item">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link scroll m-2" href="showcartproducat"><i class="fas fa-shopping-cart"
+                                                                          id="cartvalue"></i></a>
+            </li>
+
+            <li class="nav-item">
+                <a href="adduser" class="nav-link m-2 menu-item btn-outline-danger">SignUp</a>
+            </li>
+            <li class="nav-item">
+                <a href="loginpage2" class="nav-link m-2 menu-item text-white btn-outline-danger"><i
+                        class="fa fa-user-circle"> Login</i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--  end of  navbar-->
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script>
+    {% if request.session.addtocar %}
+        $(document).ready(function () {
+            var s = ({{ request.session.addtocart | safe }}).length;
+            document.getElementById('cartvalue').innerHTML = s;
+        });
+    {% endif %}
+</script>
+<script>
+    var input = document.getElementById("search");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var search = document.getElementById('search').value;
+            viewbooksincard(search)
+        }
+    });
+</script>
+{#<script>#}
+{#    $(document).ready(function () {#}
+{#        viewbooksincard("")#}
+{#    })#}
+{#</script>#}
+<script>
+    {% if bookdata %}
+        $(function () {
+            var availableTags = {{ bookdata | safe  }};
+            $("#search").autocomplete({
+                source: availableTags
+            });
+        });
+    {% endif %}
+</script>

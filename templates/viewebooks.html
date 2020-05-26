@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'indexheaderfile.html' %}
+</head>
+<body>
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+{#{{ data }}#}
+<div class="container">
+    <div class="row">
+        {% for foo in data %}
+            <div class="col-sm-4 mt-5">
+                <div class="card bg-warning">
+                    <object data="{% static 'media/' %}{{ foo.file }}" type="application/pdf" width="100%"
+                            height="200px">
+                        <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                    </object>
+                    <div class="text-center">
+                        <p class="font-weight-bold">{{ foo.title }}</p>
+                    </div>
+                </div>
+                <div class="card-footer text-right bg-primary">
+                    <a href="readebooksfull?ebookid={{ foo.eboooksid }}" class="btn btn-warning">Read</a>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

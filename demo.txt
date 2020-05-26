@@ -1,0 +1,69 @@
+<div class="main">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                {% for foo in bookdatalist %}
+                    <div class="row bg-white mb-3">
+                        <div class="col-sm-2">
+                            <img src="{% static 'media/' %}{{ foo.photo }}" alt="" height="150" width="100">
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <div>
+                                <span class="font-weight-bold h5"><a href="showgenrebooksapmle?tid={{ foo.bookid }}">{{ foo.title }}</a></span>
+                            </div>
+                            <div>
+                                <span class=""><strong class="h5">Author: </strong>{{ foo.author }}</span>
+                            </div>
+                            <div>
+                                <span class=""><strong class="h5">Category: </strong>{{ foo.catname }}</span>
+                            </div>
+                            <div>
+                                <span class=""><strong class="h5">Genre: </strong>{{ foo.genre }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <h1 class="text-white">hello world</h1>
+                </div>
+                <div class="text-right" style="position: fixed">
+                    <div class="row mt-5">
+                        <div class="col-sm-6">
+                            <div class="card ">
+                                <div class="card-header text-center">
+                                    <img src="{% static 'media/categoryphotos/8102Apollo.jpg' %}" alt="" width="150"
+                                         height="300">
+                                    <h4 class="text-center">Fictional</h4>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="showgenre?catname=Fiction" class="btn btn-outline-danger form-control">More
+                                        Books</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card ">
+                                <div class="card-header text-center">
+                                    <img src="{% static 'media/categoryphotos/7308mandela.jpg' %}" alt="" width="150"
+                                         height="300">
+                                    <h4 class="">Non-Fictional</h4>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="showgenre?catname=Non-Fiction"
+                                       class="btn btn-outline-danger form-control">More
+                                        Books</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

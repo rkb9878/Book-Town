@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>thanks</title>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    {% include 'indexheaderfile.html' %}
+</head>
+<body>
+
+{% if request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% elif not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<div class="container p-5">
+        <div class="w-50 mx-auto p-5 mt-5" style="box-shadow: 1px 0 35px black">
+            <div class="text-center">
+                <h2>"<u>Thank you for shopping with us</u>"</h2>
+                <div style="border: 1px solid orangered;border-radius: 15px 0;padding: 10px;">
+                <h5 class="text-left"><u>Email</u> : <span
+                        class="text-danger">{{ request.session.Email }}</span></h5>
+                <h5 class="text-left"><u>Your Bill Id</u> : <span class="text-danger">{{ bill_id }}</span></h5></div>
+                <a href="/" class="btn btn-outline-primary badge-pill pl-3 pr-3 m-5"><strong><-- Continue To Shop More --></strong></a>
+            </div>
+        </div>
+    </div>
+
+{% include "footer.html" %}
+
+</body>
+</html>

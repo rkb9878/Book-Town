@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load static %}
+<head>
+</head>
+<body>
+<div class="container">
+<div class="model" id="editbook">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">edit book</h1>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <form id="editvalid">
+                    {%  csrf_token %}
+                    <div class="form-group">
+                        <label for="title">title</label>
+                        <input type="hidden" id="editbook" name="editbook">
+                        <input type="text" data-rule-required="true" id="title" class="form-control" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">select furthur category</label>
+                        <select data-required class="form-control" name="catname" id="category">
+                            <option value="">---select option</option>
+                            {%  for foo in ar %}
+                            <option value="{{ foo }}">{{ foo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                <div class="form-group">
+                    <label for="description">enter description</label>
+                    <input type="text" data-rule-required="true" id="description" class="form-control" name="description">
+                </div>
+                <div class="form-group">
+                    <label for="price">enter price</label>
+                    <input type="text" data-rule-required="true" id="price" class="form-control" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="edition">enter edition</label>
+                    <input type="text" data-rule-required="true" id="edition" class="form-control" name="edition">
+                </div>
+                <div class="form-group">
+                    <label for="author">enter author</label>
+                    <input type="text" data-rule-required="true" id="author" class="form-control" name="author">
+                </div>
+                <div class="form-group">
+                    <label for="genre">enter genre</label>
+                    <input type="text" data-rule-required="true" id="edition" class="form-control" name="genre">
+                </div>                <div class="form-group">
+                    <label for="photo">enter photo</label>
+                    <input type="text" data-rule-required="true" id="photo" class="form-control" name="photo">
+                </div>
+                 <div class="form-group">
+            <label for=""> enter photo</label>
+            <input type="file" name="photo" id="photo" class="form-control">
+             </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'jsfiles.html' %}
+<script src="{% static 'js/editbook.js' %}"></script>
+
+</div>
+</body>
+</html>

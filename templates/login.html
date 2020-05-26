@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- Latest compiled JavaScript -->
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.11.2-web/css/all.css' %}">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="{% static 'fontawesome-free-5.11.2-web/js/all.js' %}"></script>
+    <script src="{% static 'dist/jquery.validate.js' %}"></script>
+    <style>
+        .slider {
+            background-image: url("{% static 'book.jpg' %}");
+            background-size: cover;
+            height: 100vh;
+            font-family: Tahoma;
+            background-repeat: no-repeat;
+
+            background-position: center;
+            position: relative;
+            overflow-y: hidden;
+        }
+
+        .textbox {
+            border: none;
+            border-bottom: red 1px solid;
+            outline: none;
+            color: whitesmoke;
+        }
+
+        .labelwork {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 130%;
+            color: #b3d7ff;
+        }
+        .error{
+            color: red !important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="slider">
+    <div class="container w-50 rounded-top rounded-bottom p-5"
+         style="box-sizing: border-box; background: rgba(0,0,0,0.5);min-height: 25rem;margin-top: 7%">
+        <form action="login" id="login" method="post">
+            {% csrf_token %}
+            <h1 class="text-center text-primary"><i class="fa fa-2x fa-user"></i></h1>
+            <div class="form-group">
+                <label for="email" class="labelwork">Enter Email</label>
+                <input type=email id="email" required class="w-100 bg-transparent textbox" name="Email" autofocus
+                       placeholder="example@email.com">
+
+            </div>
+            <div class="form-group">
+                <label for="password" class="labelwork">Enter Password</label>
+                <input type=password id="password" required class="w-100 bg-transparent textbox" name="password"
+                       placeholder="Must be atleast 8 character">
+
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn text-light mt-4 float-right btn-outline-success rounded-pill"
+                       style="!important;width: 40%;padding: 2%" value="submit">
+            </div>
+        </form>
+    </div>
+    {{ ar.message }}
+</div>
+<script src="{% static 'myjs/jquery.ripples.js' %}"></script>
+<script src="{% static 'myjs/Effect.js' %}"></script>
+<script>
+    $('#login').validate();
+</script>
+</body>
+
+</html>

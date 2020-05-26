@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Insert Package</title>
+    {% load static %}
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+
+</head>
+<body>
+{% include "navigationbar.html" %}
+<div class="container">
+    <div class="display-4 font-weight-bold p-5 text-center" style="text-decoration: underline orangered">Add Packages</div>
+    <form action="insertpackage" id="insertpackage" method="post" enctype="multipart/form-data" style="border-radius: 10px;padding: 3%;border: 2px solid red">
+
+
+        <div class="form-group">
+            <label for=""> Enter Name</label>
+            <input type="text" data-rule-required="true" class="form-control" name="name">
+        </div>
+        <div class="form-group">
+            <label for=""> Enter number of books</label>
+            <input type="text" data-rule-required="true" class="form-control" name="noofbooks">
+        </div>
+        <div class="form-group">
+            <label for=""> Enter Validity</label>
+            <input type="text" data-rule-required="true" class="form-control" name="validity">
+        </div>
+        <div class="form-group">
+            <label for=""> Enter Price</label>
+            <input type="text" data-rule-required="true" class="form-control" name="price">
+        </div>
+        {#         <div class="form-group">#}
+        {#            <label for=""> Enter Email</label>#}
+        {#            <input type="email" class="form-control" name="email">#}
+        {#        </div>#}
+        {#         <div class="form-group">#}
+        {#            <label for=""> Enter Status</label>#}
+        {#            <input type="text" class="form-control" name="status">#}
+        {#        </div>#}
+        {#         <div class="form-group">#}
+        {#            <label for=""> Enter Date of buying</label>#}
+        {#            <input type="text" class="form-control" name="dateofbuy">#}
+        {#         </div>#}
+
+        <div class="form-group text-center p-2">
+            <input type="submit" class="btn btn-success w-50 badge-pill" value="submit">
+        </div>
+    </form>
+
+</div>
+<script>
+    $('#insertpackage').validate()
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body
+        body {
+            background: url("{% static '' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+
+        .labels {
+            font-family: cursive;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            font-size: 130%;
+            color: black;
+        }
+
+        #forms {
+            background: linear-gradient(transparent 10%, darkgrey);
+            border: 5px double rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            box-sizing: content-box;
+            box-shadow: 12px 13px 8px rgba(0, 0, 255, 0.5);
+            filter: blur(0.6);
+        }
+
+    </style>
+
+</head>
+<body>
+{% include "navigationbar.html" %}
+
+<div class="container w-50 mt-sm-5" id="forms">
+    <form action="insertcategory" id="insertcategory" method="post" class="p-sm-5" enctype="multipart/form-data">
+        <h1>Add Category</h1>
+        <hr class="bg-danger">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="" class="labels"> enter category name </label>
+            <input type="text" class="form-control" required data-rule-required="true" name="catname">
+        </div>
+        <div class="form-group">
+            <label for="" class="labels"> enter description </label>
+            <input type="text" class="form-control" data-rule-required="true" name="description">
+
+        </div>
+
+        <div class="form-group">
+            <label for="" class="labels"> enter category photo</label>
+            <input type="file" name="photo" data-rule-required="true" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-success rounded-pill w-25"
+                   style="box-sizing: border-box;box-shadow: 15px 20px 10px grey" value="submit">
+        </div>
+    </form>
+</div>
+<script>
+    $('#insertcategory').validate()
+</script>
+</body>
+</html>

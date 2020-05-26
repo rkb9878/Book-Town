@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>ViewBook</title>
+    {% include 'indexheaderfile.html' %}
+</head>
+<body style="background: antiquewhite">
+{% if not request.session.Email %}
+    {% include 'indexnavigation.html' %}
+{% elif request.session.Email %}
+    {% include 'indexnavigationlogin.html' %}
+{% endif %}
+{% include 'headline.html' %}
+<section>
+    <div class="container"
+         style="background: #b3b3b338; border-bottom-left-radius: 20px;border-bottom-right-radius: 20px">
+        <div class="display-4 font-weight-bold p-5 text-center" style="color: red">Top Selling Books</div>
+        <div class="text-center text-secondary">Start your day with us!</div>
+        <hr class="bg-danger">
+        <div class="row" id="ready"></div>
+    </div>
+</section>
+{% include 'footer.html' %}
+<script src="{% static 'myjs/viewallbooks.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(document).ready(function () {
+        viewbooksincard("")
+    })
+</script>
+</body>
+</html>
